@@ -1,0 +1,21 @@
+# istio/policies/order-policy.yaml
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: order-policy
+  namespace: sentinelsecurity
+spec:
+  selector:
+    matchLabels:
+      app: order-service
+  rules:
+    - from:
+        - source:
+            principals: ["spiffe://example.org/ns/sentinelsecurity/sa/api-gateway"]
+      to:
+        - operation:
+            methods: ["POST","GET"]
+            paths: ["/orders","/health"]
+    - from: # allow User service calls to Order? (not needed) — explicitly deny frontend
+      from: []
+  # WHY: Only API Gateway can call Order. Frontend cannot call Order directly.

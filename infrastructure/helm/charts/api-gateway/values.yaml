@@ -1,0 +1,10 @@
+# infrastructure/helm/charts/api-gateway/values.yaml
+replicaCount: 1
+image:
+  repository: sentinelsecurity/api-gateway
+  tag: latest
+service:
+  port: 8080
+resources: {}
+env:
+  JWT_SECRET: "REPLACE_ME"

@@ -1,0 +1,10 @@
+# istio/policies/peer-authentication-strict.yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-strict
+  namespace: sentinelsecurity
+spec:
+  # WHY: Enforce mutual TLS in strict mode so plain-text connections are rejected.
+  mtls:
+    mode: STRICT

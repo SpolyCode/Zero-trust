@@ -1,0 +1,19 @@
+# istio/policies/user-policy.yaml
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: user-policy
+  namespace: sentinelsecurity
+spec:
+  selector:
+    matchLabels:
+      app: user-service
+  rules:
+    - from:
+        - source:
+            principals: ["spiffe://example.org/ns/sentinelsecurity/sa/api-gateway", "spiffe://example.org/ns/sentinelsecurity/sa/order-service"]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/profile","/health"]
+  # WHY: Only API Gateway and Order service may query profile endpoint.

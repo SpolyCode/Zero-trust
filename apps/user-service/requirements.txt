@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+pyjwt
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi

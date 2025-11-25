@@ -1,0 +1,6 @@
+# infrastructure/helm/charts/api-gateway/Chart.yaml
+apiVersion: v2
+name: api-gateway
+description: Helm chart for SentinelSecurity API Gateway
+version: 0.1.0
+appVersion: "0.1.0"

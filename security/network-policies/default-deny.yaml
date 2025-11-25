@@ -1,0 +1,12 @@
+# security/network-policies/default-deny.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: sentinelsecurity
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  # WHY: enforce default deny; create explicit allow rules per-app below

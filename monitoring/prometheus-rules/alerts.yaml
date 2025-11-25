@@ -1,0 +1,24 @@
+# monitoring/prometheus-rules/alerts.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: sentinel-alerts
+  namespace: monitoring
+spec:
+  groups:
+  - name: sentinel.rules
+    rules:
+    - alert: HighFailedAuth
+      expr: increase(sentinelsecurity_auth_failed_total[5m]) > 10
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Spike in failed authentication attempts"
+    - alert: MTLSHandshakeFailures
+      expr: increase(istio_security_peer_certificate_expiration_seconds_sum[5m]) > 0
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Possible mTLS handshake issue"

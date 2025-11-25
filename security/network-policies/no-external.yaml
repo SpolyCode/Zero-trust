@@ -1,0 +1,13 @@
+# security/network-policies/no-external.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-external-egress
+  namespace: sentinelsecurity
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to: []
+  # WHY: deny all egress to external internet; configure Egress Gateway if required.

@@ -1,0 +1,21 @@
+# security/network-policies/order-to-user.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: order-to-user
+  namespace: sentinelsecurity
+spec:
+  podSelector:
+    matchLabels:
+      app: order-service
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: user-service
+      ports:
+        - protocol: TCP
+          port: 8000
+  # WHY: Only Order may query User service; Frontend cannot.

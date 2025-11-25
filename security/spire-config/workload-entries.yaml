@@ -1,0 +1,13 @@
+# security/spire-config/workload-entries.yaml
+# WHY: In Kubernetes we use the SPIRE Kubernetes Workload Registrar via ServiceAccount mapping
+apiVersion: spiffe.io/v1
+kind: Registration
+metadata:
+  name: api-gateway
+spec:
+  spiffeID: "spiffe://example.org/ns/sentinelsecurity/sa/api-gateway"
+  selector:
+    - type: k8s_psat
+      value: "cluster.local/ns/sentinelsecurity/sa:api-gateway"
+---
+# Similar entries for frontend, order-service, user-service

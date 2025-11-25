@@ -1,0 +1,29 @@
+# istio/policies/api-gateway-authorization.yaml
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: api-gateway-policy
+  namespace: sentinelsecurity
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway
+  # Default deny until allowed by rules. Only allow:
+  # - Frontend -> /auth/login (POST)
+  # - Authenticated users (JWT) to POST /orders
+  rules:
+    - from:
+        - source:
+            principals: ["spiffe://example.org/ns/sentinelsecurity/sa/frontend"] # WHY: restrict source to frontend service via SPIFFE
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/auth/login"]
+    - from:
+        - source:
+            requestPrincipals: ["*"] # allow requests with valid end-user JWT validated at gateway
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/orders"]
+  # WHY: No broad allow — keep minimal
