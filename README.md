@@ -1,36 +1,32 @@
 # SentinelSecurity Zero Trust Framework
 
 **Ein vollständiges, produktionsnahes Demo-Projekt** zur Demonstration einer Zero Trust Architektur auf Kubernetes mit:
-- Istio (Service Mesh, mTLS, AuthorizationPolicies)
-- SPIFFE/SPIRE (Service Identity)
-- Observability (Prometheus, Grafana, Jaeger, Kiali)
-- Kleine E-Commerce Microservice-App
+
+- **Istio** (Service Mesh, mTLS, Authorization Policies)  
+- **SPIFFE/SPIRE** (Service Identity)  
+- **Observability** (Prometheus, Grafana, Jaeger, Kiali)  
+- Kleine E-Commerce Microservice-App  
 
 ---
 
-## 🎯 Ziel
+## 🎯 Projektziel
 
-Dieses Repo ist ein vorzeigbares Demo-Projekt für Interviews und Portfolios.  
-Es zeigt eine moderne Zero-Trust-Referenzarchitektur mit:
+Dieses Repository dient als vorzeigbares Demo-Projekt für Interviews, Portfolios und Schulungen. Es demonstriert praxisnah:
 
-- mTLS für alle Service-Kommunikationen via Istio  
-- Service-Identity via SPIFFE/SPIRE  
-- Fein granularen AuthorizationPolicies (Istio) & Kubernetes NetworkPolicies  
-- Observability:
-  - Tracing: OpenTelemetry / Jaeger  
-  - Metrics: Prometheus  
-  - Mesh Topology: Kiali  
-- CI/CD Pipeline: Lint, Scan, Build, Push, Deploy, SBOM  
+- Vollständig verschlüsselte Service-Kommunikation via mTLS mit Istio  
+- Service-Identität und Authentifizierung über SPIFFE/SPIRE  
+- Granulare Authorization Policies mit Istio und Kubernetes Network Policies  
+- Umfassende Observability mit Tracing (Jaeger), Metriken (Prometheus) und Mesh-Visualisierung (Kiali)  
+- Eine CI/CD-Pipeline zur Automatisierung von Linting, Scanning, Building, Deployment und SBOM-Erstellung  
 
 ---
 
-## 🏗 Architektur (Mermaid Diagramm)
+## 🏗 Architekturübersicht
 
 ```mermaid
 flowchart LR
 
-subgraph cluster_mesh
-    title Istio Service Mesh
+subgraph Istio_Service_Mesh
     direction TB
 
     FE[Frontend (React)]
@@ -46,9 +42,7 @@ subgraph cluster_mesh
     ORDER -->|"DB connection (restricted)"| DB
 end
 
-subgraph cluster_monitoring
-    title Monitoring
-
+subgraph Monitoring
     PROM[Prometheus]
     GRAF[Grafana]
     JA[Jaeger]
