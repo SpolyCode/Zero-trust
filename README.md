@@ -1,31 +1,61 @@
-# sentinelsecurity-zerotrust/README.md
-
 # SentinelSecurity Zero Trust Framework
-**Ein vollständiges, produktionsnahes Demo-Projekt** zur Demonstration einer Zero Trust Architektur auf Kubernetes mit Istio, SPIRE (SPIFFE), Observability (Prometheus, Grafana, Jaeger, Kiali) und einer kleinen E-Commerce Microservice-App.
 
-## Ziel
-Dieses Repo ist ein vorzeigbares Demo-Projekt für Interviews und Portfolios. Es zeigt:
-- mTLS für alle Service-Kommunikationen via Istio
-- Service-Identity via SPIFFE/SPIRE
-- Fein granularer AuthorizationPolicy (Istio) & Kubernetes NetworkPolicies
-- Observability: Tracing (OpenTelemetry/Jaeger), metrics (Prometheus), mesh topology (Kiali)
-- CI/CD Pipeline: Lint, Scan, Build, Push, Deploy, SBOM
+**Ein vollständiges, produktionsnahes Demo-Projekt** zur Demonstration einer Zero Trust Architektur auf Kubernetes mit:
+- Istio (Service Mesh, mTLS, AuthorizationPolicies)
+- SPIFFE/SPIRE (Service Identity)
+- Observability (Prometheus, Grafana, Jaeger, Kiali)
+- Kleine E-Commerce Microservice-App
 
 ---
 
-## Architektur (Mermaid)
+## 🎯 Ziel
+
+Dieses Repo ist ein vorzeigbares Demo-Projekt für Interviews und Portfolios.  
+Es zeigt eine moderne Zero-Trust-Referenzarchitektur mit:
+
+- mTLS für alle Service-Kommunikationen via Istio  
+- Service-Identity via SPIFFE/SPIRE  
+- Fein granularen AuthorizationPolicies (Istio) & Kubernetes NetworkPolicies  
+- Observability:
+  - Tracing: OpenTelemetry / Jaeger  
+  - Metrics: Prometheus  
+  - Mesh Topology: Kiali  
+- CI/CD Pipeline: Lint, Scan, Build, Push, Deploy, SBOM  
+
+---
+
+## 🏗 Architektur (Mermaid Diagramm)
+
 ```mermaid
 flowchart LR
-  subgraph cluster_mesh [Istio Service Mesh]
+
+subgraph cluster_mesh
+    title Istio Service Mesh
     direction TB
-    FE[Frontend (React)] -->|HTTP/HTTPS JWT| APIGW[API Gateway]
-    APIGW -->|mTLS + SPIFFE| USER[User Service]
-    APIGW -->|mTLS + SPIFFE| ORDER[Order Service]
-    ORDER -->|mTLS + SPIFFE| USER
-    ORDER -->|DB connection (restricted)| DB[(Database)]
-  end
-  subgraph cluster_monitoring [Monitoring]
-    PROM[Prometheus] --- GRAF[Grafana]
-    JA[Jaeger] --- PROM
-    KIALI[Kiali] --- ISTIO[Istio Control Plane]
-  end
+
+    FE[Frontend (React)]
+    APIGW[API Gateway]
+    USER[User Service]
+    ORDER[Order Service]
+    DB[(Database)]
+
+    FE -->|"HTTP/HTTPS JWT"| APIGW
+    APIGW -->|"mTLS + SPIFFE"| USER
+    APIGW -->|"mTLS + SPIFFE"| ORDER
+    ORDER -->|"mTLS + SPIFFE"| USER
+    ORDER -->|"DB connection (restricted)"| DB
+end
+
+subgraph cluster_monitoring
+    title Monitoring
+
+    PROM[Prometheus]
+    GRAF[Grafana]
+    JA[Jaeger]
+    ISTIO[Istio Control Plane]
+    KIALI[Kiali]
+
+    PROM --- GRAF
+    PROM --- JA
+    ISTIO --- KIALI
+end
