@@ -71,11 +71,3 @@ Below is a textual overview of the system architecture, optimized for GitHub’s
 
 ---
 
-## 📖 Getting Started
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/yourorg/sentinelsecurity-zerotrust.git
-   cd sentinelsecurity-zerotrust
-
