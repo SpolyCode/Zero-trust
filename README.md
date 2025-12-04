@@ -1,55 +1,81 @@
 # SentinelSecurity Zero Trust Framework
 
-**Ein vollständiges, produktionsnahes Demo-Projekt** zur Demonstration einer Zero Trust Architektur auf Kubernetes mit:
-
-- **Istio** (Service Mesh, mTLS, Authorization Policies)  
-- **SPIFFE/SPIRE** (Service Identity)  
-- **Observability** (Prometheus, Grafana, Jaeger, Kiali)  
-- Kleine E-Commerce Microservice-App  
+A **production-ready, enterprise-grade demo project** showcasing a modern Zero Trust architecture implemented on Kubernetes.  
+The project leverages **Istio** for service mesh capabilities, **SPIFFE/SPIRE** for secure service identity, and a comprehensive observability stack including **Prometheus**, **Grafana**, **Jaeger**, and **Kiali**.  
+A small E-Commerce microservice application is included to demonstrate real-world usage.
 
 ---
 
-## 🎯 Projektziel
+## 🚀 Project Overview
 
-Dieses Repository dient als vorzeigbares Demo-Projekt für Interviews, Portfolios und Schulungen. Es demonstriert praxisnah:
+Zero Trust is an increasingly vital security paradigm where **no entity is trusted by default, whether inside or outside the network perimeter**.  
+This framework implements Zero Trust principles end-to-end by securing service communications, identities, and access policies in a Kubernetes environment.
 
-- Vollständig verschlüsselte Service-Kommunikation via mTLS mit Istio  
-- Service-Identität und Authentifizierung über SPIFFE/SPIRE  
-- Granulare Authorization Policies mit Istio und Kubernetes Network Policies  
-- Umfassende Observability mit Tracing (Jaeger), Metriken (Prometheus) und Mesh-Visualisierung (Kiali)  
-- Eine CI/CD-Pipeline zur Automatisierung von Linting, Scanning, Building, Deployment und SBOM-Erstellung  
+The project showcases:
+
+- End-to-end encrypted service-to-service communication with **mTLS** enforced by Istio  
+- Strong service identity management via **SPIFFE/SPIRE**  
+- Granular access control with **Istio AuthorizationPolicies** and **Kubernetes NetworkPolicies**  
+- End-to-end observability with distributed tracing, metrics collection, and mesh topology visualization  
+- A fully automated **CI/CD pipeline** ensuring code quality, security, and streamlined deployments  
 
 ---
 
-## 🏗 Architekturübersicht
+## 🎯 Goals
 
-```mermaid
-flowchart LR
+- Demonstrate a complete Zero Trust architecture with real microservices  
+- Provide a reusable, production-close reference for interviews, portfolios, and internal training  
+- Illustrate secure service mesh communication and identity propagation  
+- Showcase integrated observability tools for deep insight into system behavior  
+- Automate build, test, and deploy workflows with GitHub Actions  
 
-subgraph Istio_Service_Mesh
-    direction TB
+---
 
-    FE[Frontend (React)]
-    APIGW[API Gateway]
-    USER[User Service]
-    ORDER[Order Service]
-    DB[(Database)]
+## 🏗 Architecture Overview
 
-    FE -->|"HTTP/HTTPS JWT"| APIGW
-    APIGW -->|"mTLS + SPIFFE"| USER
-    APIGW -->|"mTLS + SPIFFE"| ORDER
-    ORDER -->|"mTLS + SPIFFE"| USER
-    ORDER -->|"DB connection (restricted)"| DB
-end
+Below is a textual overview of the system architecture, optimized for GitHub’s markdown rendering constraints.
 
-subgraph Monitoring
-    PROM[Prometheus]
-    GRAF[Grafana]
-    JA[Jaeger]
-    ISTIO[Istio Control Plane]
-    KIALI[Kiali]
 
-    PROM --- GRAF
-    PROM --- JA
-    ISTIO --- KIALI
-end
+
+---
+
+## 🛠 Technologies & Tools
+
+| Area                | Technology                    | Purpose                                    |
+|---------------------|------------------------------|--------------------------------------------|
+| Service Mesh        | Istio                        | Secure, observable service-to-service communication with mTLS and policy enforcement |
+| Service Identity    | SPIFFE / SPIRE               | Strong cryptographic identity for services |
+| Distributed Tracing | OpenTelemetry, Jaeger        | Collecting and visualizing request traces  |
+| Metrics & Monitoring| Prometheus                   | Metrics scraping and alerting               |
+| Visualization       | Grafana, Kiali               | Dashboards and mesh topology visualization  |
+| Container Orchestration | Kubernetes                | Container scheduling and management         |
+| CI/CD Pipeline      | GitHub Actions               | Automated testing, building, scanning, and deployment |
+
+---
+
+## 🔐 Security Highlights
+
+- **Mutual TLS (mTLS)** encryption ensures all traffic between microservices is confidential and authenticated.  
+- **SPIFFE IDs** provide strong, verifiable identities for each service.  
+- **AuthorizationPolicies** enforce fine-grained access control based on identity and role.  
+- **NetworkPolicies** restrict Kubernetes pod communication at the network layer.  
+- **CI/CD Security** includes static code analysis, vulnerability scanning, and SBOM generation.  
+
+---
+
+## 📈 Observability Highlights
+
+- **Distributed tracing** with Jaeger to track requests end-to-end.  
+- **Real-time metrics** collection with Prometheus and visualization in Grafana.  
+- **Service mesh visualization** with Kiali provides health and dependency insights.  
+
+---
+
+## 📖 Getting Started
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourorg/sentinelsecurity-zerotrust.git
+   cd sentinelsecurity-zerotrust
+
